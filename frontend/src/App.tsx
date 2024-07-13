@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Landing from "./screens/Landing.js";
-import Game from "./screens/Game.js";
-import Login from "./screens/Login.js";
+import Landing from "./screens/Landing";
+import Game from "./screens/Game";
+import Login from "./screens/Login";
 import { Suspense } from "react";
 import { RecoilRoot } from "recoil";
 
-import Loader from "./components/Loader.js";
-import Register from "./screens/Register.js";
-import AuthLayout from "./screens/Auth.js";
-import ProtectedPage from "./components/ProtectedPage.js";
+import Loader from "./components/Loader";
+import Register from "./screens/Register";
+import AuthLayout from "./screens/Auth";
+import ProtectedPage from "./components/ProtectedPage";
 
 function App() {
   return (

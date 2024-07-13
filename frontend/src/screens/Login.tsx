@@ -1,8 +1,8 @@
 // Login.js
-import { LoginHandler } from "../api/user.js";
+import { LoginHandler } from "../api/user";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loader.js";
+import Loader from "../components/Loader";
 
 const Login = () => {
   const [email, setEmail] = useState("");

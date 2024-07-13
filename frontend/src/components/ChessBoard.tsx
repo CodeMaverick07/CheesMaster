@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Chess, Color, PieceSymbol, Square } from "chess.js";
-import { MOVE } from "../lib/utils.js";
+import { MOVE } from "../lib/utils";
 
 interface ChessBoardProps {
   board: ({ square: Square; type: PieceSymbol; color: Color } | null)[][];
@@ -89,7 +89,7 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
                 {square ? (
                   <img
                     className={`${isFliped ? "rotate-180" : ""}`}
-                    src={`../assets/${
+                    src={`/${
                       square.color === "b"
                         ? square.type
                         : `${square.type.toUpperCase()} copy`

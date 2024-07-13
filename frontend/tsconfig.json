@@ -1,19 +1,11 @@
 {
-  "compilerOptions": {
-    "jsx": "react",
-    "moduleResolution": "node16",
-
-    "target": "es5",
-
-    "module": "Node16",
-
-    "strict": true,
-
-    "esModuleInterop": true,
-
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
     }
-  }
+  ]
 }
