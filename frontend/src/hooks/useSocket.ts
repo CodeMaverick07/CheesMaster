@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../Store/hooks/useUser";
 
-const WS_URL = process.env.WS_URL;
+const WS_URL = "ws://localhost:8080";
+console.log(WS_URL);
 
 export const useSocket = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);

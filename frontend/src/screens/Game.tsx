@@ -49,7 +49,7 @@ const Game = () => {
   }, [socket]);
 
   return (
-    <div className="flex mx-32 justify-center">
+    <div className="flex mx-32 max-md:-mt-10 max-md:mx-0 max-md:flex-col max-md:items-center justify-center">
       <div className="w-[50%] h-screen flex justify-center items-center ">
         <div className={`${isFliped ? "rotate-180" : ""}`}>
           <ChessBoard
@@ -62,8 +62,8 @@ const Game = () => {
           />
         </div>
       </div>
-      <div className="w-[35%] h-screen flex justify-start items-center">
-        <div className="bg-[#262522] h-[83%] w-full flex justify-center items-center">
+      <div className="w-[35%] h-screen flex justify-start items-center max-md:-mt-20">
+        <div className="bg-[#262522] h-[83%] w-full flex max-md:items-start justify-center items-center">
           {!clicked && (
             <Button
               onClick={() => {

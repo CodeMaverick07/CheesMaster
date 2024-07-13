@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
+const BACKEND_URL = "http://localhost:3000";
 export const LoginHandler = async (email: string, password: string) => {
   try {
     const response = await axios.post(
-      `${process.env.BACKEND_URL}/auth/login`,
+      `${BACKEND_URL}/auth/login`,
       { email, password },
       {
         withCredentials: true,
@@ -25,7 +26,7 @@ export const RegisterHandler = async (
 ) => {
   try {
     const response = await axios.post(
-      `${process.env.BACKEND_URL}/auth/register`,
+      `${BACKEND_URL}/auth/register`,
       { email, name, password },
       { withCredentials: true }
     );
@@ -39,11 +40,7 @@ export const RegisterHandler = async (
 
 export const LogoutHandler = async () => {
   try {
-    axios.post(
-      `${process.env.BACKEND_URL}/auth/logout`,
-      {},
-      { withCredentials: true }
-    );
+    axios.post(`${BACKEND_URL}/auth/logout`, {}, { withCredentials: true });
   } catch (error: any) {
     console.error("Error register in:", error);
     return { success: false, message: error.message };
@@ -53,7 +50,7 @@ export const LogoutHandler = async () => {
 export const validateToken = async () => {
   try {
     const response = await axios.post(
-      `${process.env.BACKEND_URL}/auth/validate`,
+      `${BACKEND_URL}/auth/validate`,
       {},
       {
         withCredentials: true,
