@@ -1,8 +1,8 @@
 import React, { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { validateToken } from "@/api/user"; // Adjust the import path as necessary
+import { validateToken } from "../api/user.js"; // Adjust the import path as necessary
 import { useSetRecoilState } from "recoil";
-import { userAtom } from "@/Store/atoms/user";
+import { userAtom } from "../Store/atoms/user.js";
 
 const ProtectedPage = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();

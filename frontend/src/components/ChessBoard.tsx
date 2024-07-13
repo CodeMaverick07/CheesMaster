@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Chess, Color, PieceSymbol, Square } from "chess.js";
-import { MOVE } from "../lib/utils";
+import { MOVE } from "../lib/utils.js";
 
 interface ChessBoardProps {
   board: ({ square: Square; type: PieceSymbol; color: Color } | null)[][];

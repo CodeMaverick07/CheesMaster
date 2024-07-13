@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useSocket } from "@/hooks/useSocket";
-import ChessBoard from "@/components/ChessBoard";
-import { Button } from "@/components/ui/button";
-import { GAME_OVER, INIT_GAME, MOVE } from "@/lib/utils";
+import { useSocket } from "../hooks/useSocket.js";
+import ChessBoard from "../components/ChessBoard.js";
+import { Button } from "../components/ui/button.js";
+import { GAME_OVER, INIT_GAME, MOVE } from "../lib/utils.js";
 import { Chess, Color } from "chess.js";
-import Loader from "@/components/Loader";
+import Loader from "../components/Loader.js";
 
 const Game = () => {
   const [chess, setChess] = useState(new Chess());
@@ -20,7 +20,8 @@ const Game = () => {
     if (!socket) {
       return;
     }
-    socket.onmessage = (event) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    socket.onmessage = (event: any) => {
       const message = JSON.parse(event.data);
 
       switch (message.type) {

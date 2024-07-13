@@ -1,6 +1,6 @@
 // Login.js
-import { RegisterHandler } from "@/api/user";
-import Loader from "@/components/Loader";
+import { RegisterHandler } from "../api/user.js";
+import Loader from "../components/Loader.js";
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
