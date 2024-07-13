@@ -3,7 +3,6 @@ import React from "react";
 
 const Landing = () => {
   const navigate = useNavigate();
-
   return (
     <div className="mx-20">
       <div className="flex  ">

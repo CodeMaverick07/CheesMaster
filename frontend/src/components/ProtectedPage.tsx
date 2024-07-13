@@ -23,7 +23,7 @@ const ProtectedPage = ({ children }: { children: ReactNode }) => {
       }
     };
     checkToken();
-  }, []);
+  }, [navigate]);
 
   return <div>{children}</div>;
 };

@@ -25,7 +25,7 @@ function App() {
               <Route path="/" element={<Landing />} />
 
               <Route
-                path="/game:gameId"
+                path="/game"
                 element={
                   <ProtectedPage>
                     <Game />

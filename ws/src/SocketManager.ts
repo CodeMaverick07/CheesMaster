@@ -12,5 +12,3 @@ export class User {
     this.id = randomUUID();
   }
 }
-
-export class SocketManager {}

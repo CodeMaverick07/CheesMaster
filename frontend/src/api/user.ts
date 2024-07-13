@@ -3,7 +3,7 @@ import axios from "axios";
 export const LoginHandler = async (email: string, password: string) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/auth/login",
+      `${process.env.BACKEND_URL}/auth/login`,
       { email, password },
       {
         withCredentials: true,
@@ -25,7 +25,7 @@ export const RegisterHandler = async (
 ) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/auth/register",
+      `${process.env.BACKEND_URL}/auth/register`,
       { email, name, password },
       { withCredentials: true }
     );
@@ -40,7 +40,7 @@ export const RegisterHandler = async (
 export const LogoutHandler = async () => {
   try {
     axios.post(
-      "http://localhost:3000/auth/logout",
+      `${process.env.BACKEND_URL}/auth/logout`,
       {},
       { withCredentials: true }
     );
@@ -53,7 +53,7 @@ export const LogoutHandler = async () => {
 export const validateToken = async () => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/auth/validate",
+      `${process.env.BACKEND_URL}/auth/validate`,
       {},
       {
         withCredentials: true,
