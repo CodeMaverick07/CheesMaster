@@ -101,6 +101,7 @@ export const RegisterControlloer = async (req: Request, res: Response) => {
     const options = {
       httpOnly: true,
       secure: true,
+      samesite: "none",
     };
 
     return res

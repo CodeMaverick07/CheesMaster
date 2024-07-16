@@ -1,4 +1,10 @@
 {
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "es5", // Example target configuration
+    "module": "commonjs", // Example module configuration
+    "strict": true // Example strict mode configuration
+  },
   "files": [],
   "references": [
     {

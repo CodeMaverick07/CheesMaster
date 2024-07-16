@@ -106,6 +106,7 @@ const RegisterControlloer = (req, res) => __awaiter(void 0, void 0, void 0, func
         const options = {
             httpOnly: true,
             secure: true,
+            samesite: "none",
         };
         return res
             .status(200)
