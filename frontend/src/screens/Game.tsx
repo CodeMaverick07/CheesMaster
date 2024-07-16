@@ -22,7 +22,7 @@ const Game = () => {
     }
     socket.onmessage = (event) => {
       const message = JSON.parse(event.data);
-
+      console.log(message);
       switch (message.type) {
         case INIT_GAME:
           if (message.color === "black") {

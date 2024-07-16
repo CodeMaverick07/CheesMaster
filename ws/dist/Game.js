@@ -14,24 +14,20 @@ class Game {
     }
     MakeMove(user, move) {
         if (this.moveCount % 2 === 0 && user.socket !== this.Player1.socket) {
-            console.log(this.moveCount);
-            console.log("return 1");
             return;
         }
         if (this.moveCount % 2 === 1 && user.socket !== this.Player2.socket) {
-            console.log("return 2");
             return;
         }
         try {
-            console.log("moving");
             this.board.move(move);
         }
         catch (error) {
             console.log(error);
-            console.log("return 3");
             return;
         }
         if (this.board.isGameOver()) {
+            console.log("game over");
             this.Player1.socket.send(JSON.stringify({
                 type: messages_1.GAME_OVER,
                 payload: {
@@ -41,21 +37,18 @@ class Game {
             return;
         }
         if (this.moveCount % 2 === 0) {
-            console.log("sending move to player 2");
             this.Player2.socket.send(JSON.stringify({
                 type: messages_1.MOVE,
                 payload: move,
             }));
         }
         else {
-            console.log("sending move to player 1");
             this.Player1.socket.send(JSON.stringify({
                 type: messages_1.MOVE,
                 payload: move,
             }));
         }
         this.moveCount++;
-        console.log(this.moveCount);
     }
 }
 exports.Game = Game;

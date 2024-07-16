@@ -15,14 +15,23 @@ const allowedHosts = process.env.ALLOWED_HOSTS
     ? process.env.ALLOWED_HOSTS.split(",")
     : [];
 app.use((0, cors_1.default)({
-    origin: allowedHosts,
+    origin: function (origin, callback) {
+        if (!origin)
+            return callback(null, true);
+        if (allowedHosts.indexOf(origin) !== -1) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
 }));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.get("/", (req, res) => {
-    res.send("welcome to ChessAPI");
+    res.send("Welcome to ChessAPI");
 });
 app.use("/auth", auth_route_1.default);
 app.listen(port, () => {

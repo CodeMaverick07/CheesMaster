@@ -13,7 +13,14 @@ const allowedHosts = process.env.ALLOWED_HOSTS
 
 app.use(
   cors({
-    origin: allowedHosts,
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedHosts.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
@@ -22,7 +29,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-  res.send("welcome to ChessAPI");
+  res.send("Welcome to ChessAPI");
 });
 
 app.use("/auth", router);

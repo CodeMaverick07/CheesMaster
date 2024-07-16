@@ -34,7 +34,6 @@ class GameManager {
             if (message.type === messages_1.MOVE) {
                 const game = this.games.find((game) => game.Player1 === user || game.Player2 === user);
                 if (game) {
-                    console.log(message.payload);
                     game.MakeMove(user, message.payload);
                 }
             }

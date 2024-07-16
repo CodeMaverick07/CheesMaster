@@ -41,6 +41,7 @@ export class Game {
       return;
     }
     if (this.board.isGameOver()) {
+      console.log("game over");
       this.Player1.socket.send(
         JSON.stringify({
           type: GAME_OVER,
