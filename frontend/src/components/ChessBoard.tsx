@@ -89,7 +89,7 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
                 {square ? (
                   <img
                     className={`${isFliped ? "rotate-180" : ""}`}
-                    src={`/${
+                    src={`../assets/${
                       square.color === "b"
                         ? square.type
                         : `${square.type.toUpperCase()} copy`
