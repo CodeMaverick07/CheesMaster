@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const ws_1 = require("ws");
 const GameManager_1 = require("./GameManager");
 const url_1 = __importDefault(require("url"));
+const db_1 = require("./db");
 const app = (0, express_1.default)();
 const httpServer = app.listen(8080);
 const wss = new ws_1.WebSocketServer({ server: httpServer });
@@ -16,6 +17,12 @@ const gameManager = new GameManager_1.GameManager();
 wss.on("connection", function connection(ws, req) {
     //@ts-ignore
     const Id = url_1.default.parse(req.url, true).query.id;
+    const userData = db_1.db.user.findUnique({
+        where: { id: Id },
+    });
+    if (!userData) {
+        return;
+    }
     gameManager.addUser(ws, Id);
     ws.on("close", () => {
         gameManager.removeUser(ws);

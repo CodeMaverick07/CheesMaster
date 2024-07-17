@@ -1,5 +1,5 @@
 import { WebSocket } from "ws";
-import { INIT_GAME, MOVE } from "./messages";
+import { INIT_GAME, MOVE, PlAYING_WITH_SELF } from "./messages";
 import { Game } from "./Game";
 import { User } from "./SocketManager";
 
@@ -26,6 +26,17 @@ export class GameManager {
 
       if (message.type === INIT_GAME) {
         if (this.pendingUser) {
+          if (this.pendingUser.userId === user.userId) {
+            this.pendingUser = null;
+            user.socket.send(
+              JSON.stringify({
+                type: PlAYING_WITH_SELF,
+                payload: "You can't play with yourself",
+              })
+            );
+            return;
+          }
+
           const game = new Game(this.pendingUser, user);
           this.games.push(game);
           this.pendingUser = null;

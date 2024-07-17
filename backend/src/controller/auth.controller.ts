@@ -70,9 +70,10 @@ const isRefreshTokenExpired = (token: string): boolean => {
 };
 
 export const RegisterControlloer = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     const { name, email, password } = req.body;
-    const data = CreateUserSchema.parse({ name, email, password });
+    const data = await CreateUserSchema.parse({ name, email, password });
     const existingUser = await db.user.findFirst({
       where: {
         OR: [{ email: data.email }, { name: data.name }],

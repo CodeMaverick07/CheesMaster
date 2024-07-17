@@ -23,6 +23,14 @@ class GameManager {
             const message = JSON.parse(data.toString());
             if (message.type === messages_1.INIT_GAME) {
                 if (this.pendingUser) {
+                    if (this.pendingUser.userId === user.userId) {
+                        this.pendingUser = null;
+                        user.socket.send(JSON.stringify({
+                            type: messages_1.PlAYING_WITH_SELF,
+                            payload: "You can't play with yourself",
+                        }));
+                        return;
+                    }
                     const game = new Game_1.Game(this.pendingUser, user);
                     this.games.push(game);
                     this.pendingUser = null;

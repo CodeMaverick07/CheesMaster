@@ -79,9 +79,10 @@ const isRefreshTokenExpired = (token) => {
     return currentTime > decoded.exp;
 };
 const RegisterControlloer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
     try {
         const { name, email, password } = req.body;
-        const data = CreateUserSchema.parse({ name, email, password });
+        const data = yield CreateUserSchema.parse({ name, email, password });
         const existingUser = yield index_1.db.user.findFirst({
             where: {
                 OR: [{ email: data.email }, { name: data.name }],

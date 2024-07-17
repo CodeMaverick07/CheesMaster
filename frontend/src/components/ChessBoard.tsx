@@ -11,7 +11,7 @@ interface ChessBoardProps {
     >
   >;
   chess: Chess | null;
-  isFliped: boolean;
+  isFlipped: boolean;
   playerColor: Color;
 }
 
@@ -20,9 +20,31 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
   socket,
   setBoard,
   chess,
-  isFliped,
+  isFlipped,
   playerColor,
 }) => {
+  function isPromoting(chess: Chess, from: Square, to: Square): boolean {
+    if (!from) {
+      return false;
+    }
+
+    const piece = chess.get(from);
+
+    if (piece?.type !== "p") {
+      return false;
+    }
+
+    if (piece.color !== chess.turn()) {
+      return false;
+    }
+
+    if (!["1", "8"].some((it) => to.endsWith(it))) {
+      return false;
+    }
+
+    return true;
+  }
+
   const [from, setFrom] = useState<Square | null>(null);
   const [legalMoves, setLegalMoves] = useState<Square[]>([]);
 
@@ -48,15 +70,32 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
       } else {
         const move = { from, to: squareRepresetation };
 
+        // Check if the move is a promotion
         if (chess?.move(move)) {
-          socket.send(
-            JSON.stringify({
-              type: MOVE,
-              payload: move,
-            })
-          );
+          if (isPromoting(chess, from, squareRepresetation)) {
+            console.log("Promotion");
+            const promotionMove = {
+              from,
+              to: squareRepresetation,
+              promotion: "q",
+            };
+            chess!.move(promotionMove);
+            socket.send(
+              JSON.stringify({
+                type: MOVE,
+                payload: promotionMove,
+              })
+            );
+          } else {
+            socket.send(
+              JSON.stringify({
+                type: MOVE,
+                payload: move,
+              })
+            );
+          }
           setFrom(null);
-          setBoard(chess.board());
+          setBoard(chess!.board());
           setLegalMoves([]);
         } else {
           setFrom(null);
@@ -89,7 +128,7 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
                   )}
                   {square ? (
                     <img
-                      className={`${isFliped ? "rotate-180" : ""}`}
+                      className={`${isFlipped ? "rotate-180" : ""}`}
                       src={`/${
                         square.color === "b"
                           ? square.type

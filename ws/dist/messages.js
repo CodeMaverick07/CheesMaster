@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GAME_TIME = exports.GAME_ADDED = exports.GAME_ALERT = exports.GAME_ENDED = exports.GAME_JOINED = exports.GAME_NOT_FOUND = exports.JOIN_ROOM = exports.OPPONENT_DISCONNECTED = exports.JOIN_GAME = exports.GAME_OVER = exports.MOVE = exports.INIT_GAME = void 0;
+exports.PlAYING_WITH_SELF = exports.GAME_TIME = exports.GAME_ADDED = exports.GAME_ALERT = exports.GAME_ENDED = exports.GAME_JOINED = exports.GAME_NOT_FOUND = exports.JOIN_ROOM = exports.OPPONENT_DISCONNECTED = exports.JOIN_GAME = exports.GAME_OVER = exports.MOVE = exports.INIT_GAME = void 0;
 exports.INIT_GAME = "init_game";
 exports.MOVE = "move";
 exports.GAME_OVER = "game_over";
@@ -13,3 +13,4 @@ exports.GAME_ENDED = "game_ended";
 exports.GAME_ALERT = "game_alert";
 exports.GAME_ADDED = "game_added";
 exports.GAME_TIME = "game_time";
+exports.PlAYING_WITH_SELF = "playing_with_self";

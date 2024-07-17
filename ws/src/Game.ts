@@ -1,7 +1,28 @@
-import { WebSocket } from "ws";
-import { Chess } from "chess.js";
+import { Chess, Square } from "chess.js";
 import { GAME_OVER, INIT_GAME, MOVE } from "./messages";
 import { User } from "./SocketManager";
+import { db } from "./db";
+function isPromoting(chess: Chess, from: Square, to: Square): boolean {
+  if (!from) {
+    return false;
+  }
+
+  const piece = chess.get(from);
+
+  if (piece?.type !== "p") {
+    return false;
+  }
+
+  if (piece.color !== chess.turn()) {
+    return false;
+  }
+
+  if (!["1", "8"].some((it) => to.endsWith(it))) {
+    return false;
+  }
+
+  return true;
+}
 
 export class Game {
   public Player1: User;
@@ -13,18 +34,58 @@ export class Game {
     this.Player1 = player1;
     this.Player2 = player2;
     this.board = new Chess();
-    this.Player1.socket.send(
-      JSON.stringify({ type: INIT_GAME, color: "white" })
-    );
-    this.Player2.socket.send(
-      JSON.stringify({ type: INIT_GAME, color: "black" })
-    );
+    this.initGame();
   }
-  MakeMove(
+
+  private async initGame() {
+    try {
+      const player1Data = await db.user.findFirst({
+        where: {
+          id: this.Player1.userId,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      });
+
+      const player2Data = await db.user.findFirst({
+        where: {
+          id: this.Player2.userId,
+        },
+
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      });
+
+      this.Player1.socket.send(
+        JSON.stringify({
+          type: INIT_GAME,
+          color: "white",
+          playerData: { white: player1Data, black: player2Data },
+        })
+      );
+      this.Player2.socket.send(
+        JSON.stringify({
+          type: INIT_GAME,
+          color: "black",
+          playerData: { white: player1Data, black: player2Data },
+        })
+      );
+    } catch (error) {
+      console.error("Error initializing game:", error);
+    }
+  }
+
+  public MakeMove(
     user: User,
     move: {
-      from: string;
-      to: string;
+      from: Square;
+      to: Square;
     }
   ) {
     if (this.moveCount % 2 === 0 && user.socket !== this.Player1.socket) {
@@ -34,15 +95,34 @@ export class Game {
       return;
     }
     try {
-      this.board.move(move);
-    } catch (error) {
-      console.log(error);
-
+      if (isPromoting(this.board, move.from, move.to)) {
+        console.log("promoting");
+        this.board.move({
+          from: move.from,
+          to: move.to,
+          promotion: "q",
+        });
+      } else {
+        this.board.move({
+          from: move.from,
+          to: move.to,
+        });
+      }
+    } catch (e) {
+      console.error("Error while making move");
       return;
     }
     if (this.board.isGameOver()) {
       console.log("game over");
       this.Player1.socket.send(
+        JSON.stringify({
+          type: GAME_OVER,
+          payload: {
+            winner: this.board.turn() === "w" ? "black" : "white",
+          },
+        })
+      );
+      this.Player2.socket.send(
         JSON.stringify({
           type: GAME_OVER,
           payload: {
