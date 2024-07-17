@@ -50,7 +50,7 @@ const Game = () => {
 
   return (
     <div className="flex max-sm:h-screen mx-32 max-md:-mt-10 max-sm:mt-0 max-md:mx-0 max-md:flex-col max-md:items-center justify-center">
-      <div className="w-[50%] max-sm:w-full max-sm:h-[82%] flex justify-center items-center ">
+      <div className="w-[50%] max-sm:w-full max-sm:h-[82%] h-screen flex justify-center items-center ">
         <div className={`${isFliped ? "rotate-180" : ""}`}>
           <ChessBoard
             isFliped={isFliped}
@@ -62,7 +62,7 @@ const Game = () => {
           />
         </div>
       </div>
-      <div className="w-[35%] max-sm:w-screen flex justify-start items-center max-md:-mt-20 overflow-hidden">
+      <div className="w-[35%] max-sm:w-screen max-md:h-screen max-sm:h-10 flex justify-start items-center max-md:-mt-20 overflow-hidden">
         <div className="bg-[#262522] h-[83%] max-sm:h-full w-full flex max-md:items-start justify-center items-center">
           {!clicked && (
             <Button
