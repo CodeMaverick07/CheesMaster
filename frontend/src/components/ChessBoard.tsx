@@ -68,40 +68,42 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
 
   return (
     <div className="text-white-200">
-      {board.map((row, i) => (
-        <div key={i} className="flex">
-          {row.map((square, j) => {
-            const squareRepresetation = (String.fromCharCode(97 + (j % 8)) +
-              (8 - i)) as Square;
-            const isLegalMove = legalMoves.includes(squareRepresetation);
+      <div>
+        {board.map((row, i) => (
+          <div key={i} className="flex">
+            {row.map((square, j) => {
+              const squareRepresetation = (String.fromCharCode(97 + (j % 8)) +
+                (8 - i)) as Square;
+              const isLegalMove = legalMoves.includes(squareRepresetation);
 
-            return (
-              <div
-                key={j}
-                onClick={() => handleSquareClick(squareRepresetation, square)}
-                className={`w-[4.5rem] h-[4.5rem] flex justify-center items-center ${
-                  i % 2 === j % 2 ? "bg-[#ebebd0]" : "bg-[#779455]"
-                } `}
-              >
-                {isLegalMove && (
-                  <div className="bg-[#302e2b] rounded-full h-6 w-6"></div>
-                )}
-                {square ? (
-                  <img
-                    className={`${isFliped ? "rotate-180" : ""}`}
-                    src={`/${
-                      square.color === "b"
-                        ? square.type
-                        : `${square.type.toUpperCase()} copy`
-                    }.png`}
-                    alt={`${square.color} ${square.type}`}
-                  />
-                ) : null}
-              </div>
-            );
-          })}
-        </div>
-      ))}
+              return (
+                <div
+                  key={j}
+                  onClick={() => handleSquareClick(squareRepresetation, square)}
+                  className={`w-[4.5rem] max-sm:w-[2.5rem] max-sm:h-[2.5rem] h-[4.5rem] flex justify-center items-center ${
+                    i % 2 === j % 2 ? "bg-[#ebebd0]" : "bg-[#779455]"
+                  } `}
+                >
+                  {isLegalMove && (
+                    <div className="bg-[#302e2b] rounded-full h-6 w-6 max-sm:h-3 max-sm:w-3"></div>
+                  )}
+                  {square ? (
+                    <img
+                      className={`${isFliped ? "rotate-180" : ""}`}
+                      src={`/${
+                        square.color === "b"
+                          ? square.type
+                          : `${square.type.toUpperCase()} copy`
+                      }.png`}
+                      alt={`${square.color} ${square.type}`}
+                    />
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
