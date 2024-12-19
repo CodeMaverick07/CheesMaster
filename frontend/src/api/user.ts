@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-const BACKEND_URL = "https://backend.hemantjatal.me";
-// const BACKEND_URL = "http://localhost:3000";
+//const BACKEND_URL = "https://backend.hemantjatal.me";
+const BACKEND_URL = "http://localhost:3000";
 export const LoginHandler = async (email: string, password: string) => {
   try {
     const response = await axios.post(

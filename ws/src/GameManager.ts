@@ -7,6 +7,7 @@ export class GameManager {
   private games: Game[];
   private pendingUser: User | null;
   private users: User[];
+
   constructor() {
     this.games = [];
     this.pendingUser = null;
@@ -23,7 +24,6 @@ export class GameManager {
   private addHandeler(user: User) {
     user.socket.on("message", (data) => {
       const message = JSON.parse(data.toString());
-
       if (message.type === INIT_GAME) {
         if (this.pendingUser) {
           if (this.pendingUser.userId === user.userId) {
