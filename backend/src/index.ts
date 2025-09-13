@@ -11,20 +11,9 @@ const allowedHosts = process.env.ALLOWED_HOSTS
   ? process.env.ALLOWED_HOSTS.split(",")
   : [];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-      if (allowedHosts.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: "GET,POST,PUT,DELETE",
-    credentials: true,
-  })
-);
+app.use(cors({   origin: true,   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
